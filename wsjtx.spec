@@ -4,7 +4,7 @@
 #
 Name     : wsjtx
 Version  : 2.0.1
-Release  : 1
+Release  : 2
 URL      : https://physics.princeton.edu/pulsar/k1jt/wsjtx-2.0.1.tgz
 Source0  : https://physics.princeton.edu/pulsar/k1jt/wsjtx-2.0.1.tgz
 Summary  : No detailed summary available
@@ -81,25 +81,61 @@ man components for the wsjtx package.
 
 %prep
 %setup -q -n wsjtx-2.0.1
+pushd ..
+cp -a wsjtx-2.0.1 buildavx2
+popd
+pushd ..
+cp -a wsjtx-2.0.1 buildavx512
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1552344793
+export SOURCE_DATE_EPOCH=1552346123
 mkdir -p clr-build
 pushd clr-build
 export LDFLAGS="${LDFLAGS} -fno-lto"
 %cmake .. -DWSJT_GENERATE_DOCS:BOOL=OFF
 make  %{?_smp_mflags} VERBOSE=1
 popd
+mkdir -p clr-build-avx2
+pushd clr-build-avx2
+export LDFLAGS="${LDFLAGS} -fno-lto"
+export CFLAGS="$CFLAGS -O3 -march=haswell "
+export FCFLAGS="$CFLAGS -O3 -march=haswell "
+export FFLAGS="$CFLAGS -O3 -march=haswell "
+export CXXFLAGS="$CXXFLAGS -O3 -march=haswell "
+export CFLAGS="$CFLAGS -march=haswell -m64"
+export CXXFLAGS="$CXXFLAGS -march=haswell -m64"
+%cmake .. -DWSJT_GENERATE_DOCS:BOOL=OFF
+make  %{?_smp_mflags} VERBOSE=1
+popd
+mkdir -p clr-build-avx512
+pushd clr-build-avx512
+export LDFLAGS="${LDFLAGS} -fno-lto"
+export CFLAGS="$CFLAGS -O3 -march=skylake-avx512 "
+export FCFLAGS="$CFLAGS -O3 -march=skylake-avx512 "
+export FFLAGS="$CFLAGS -O3 -march=skylake-avx512 "
+export CXXFLAGS="$CXXFLAGS -O3 -march=skylake-avx512 "
+export CFLAGS="$CFLAGS -march=skylake-avx512 -m64 "
+export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -m64 "
+%cmake .. -DWSJT_GENERATE_DOCS:BOOL=OFF
+make  %{?_smp_mflags} VERBOSE=1
+popd
 
 %install
-export SOURCE_DATE_EPOCH=1552344793
+export SOURCE_DATE_EPOCH=1552346123
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/wsjtx
 cp COPYING %{buildroot}/usr/share/package-licenses/wsjtx/COPYING
+pushd clr-build-avx512
+%make_install_avx512  || :
+popd
+pushd clr-build-avx2
+%make_install_avx2  || :
+popd
 pushd clr-build
 %make_install
 popd
@@ -113,6 +149,42 @@ popd
 /usr/bin/fmeasure
 /usr/bin/fmtave
 /usr/bin/ft8code
+/usr/bin/haswell/avx512_1/fcal
+/usr/bin/haswell/avx512_1/fmeasure
+/usr/bin/haswell/avx512_1/fmtave
+/usr/bin/haswell/avx512_1/ft8code
+/usr/bin/haswell/avx512_1/jt4code
+/usr/bin/haswell/avx512_1/jt65code
+/usr/bin/haswell/avx512_1/jt9
+/usr/bin/haswell/avx512_1/jt9code
+/usr/bin/haswell/avx512_1/message_aggregator
+/usr/bin/haswell/avx512_1/msk144code
+/usr/bin/haswell/avx512_1/qra64code
+/usr/bin/haswell/avx512_1/qra64sim
+/usr/bin/haswell/avx512_1/rigctl-wsjtx
+/usr/bin/haswell/avx512_1/rigctlcom-wsjtx
+/usr/bin/haswell/avx512_1/rigctld-wsjtx
+/usr/bin/haswell/avx512_1/udp_daemon
+/usr/bin/haswell/avx512_1/wsjtx
+/usr/bin/haswell/avx512_1/wsprd
+/usr/bin/haswell/fcal
+/usr/bin/haswell/fmeasure
+/usr/bin/haswell/fmtave
+/usr/bin/haswell/ft8code
+/usr/bin/haswell/jt4code
+/usr/bin/haswell/jt65code
+/usr/bin/haswell/jt9
+/usr/bin/haswell/jt9code
+/usr/bin/haswell/message_aggregator
+/usr/bin/haswell/msk144code
+/usr/bin/haswell/qra64code
+/usr/bin/haswell/qra64sim
+/usr/bin/haswell/rigctl-wsjtx
+/usr/bin/haswell/rigctlcom-wsjtx
+/usr/bin/haswell/rigctld-wsjtx
+/usr/bin/haswell/udp_daemon
+/usr/bin/haswell/wsjtx
+/usr/bin/haswell/wsprd
 /usr/bin/jt4code
 /usr/bin/jt65code
 /usr/bin/jt9
