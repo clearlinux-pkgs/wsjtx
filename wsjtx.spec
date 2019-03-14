@@ -4,9 +4,9 @@
 #
 Name     : wsjtx
 Version  : 2.0.1
-Release  : 2
-URL      : https://physics.princeton.edu/pulsar/k1jt/wsjtx-2.0.1.tgz
-Source0  : https://physics.princeton.edu/pulsar/k1jt/wsjtx-2.0.1.tgz
+Release  : 3
+URL      : https://downloads.sourceforge.net/project/wsjt/wsjtx-2.0.1/wsjtx-2.0.1.tgz
+Source0  : https://downloads.sourceforge.net/project/wsjt/wsjtx-2.0.1/wsjtx-2.0.1.tgz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0
@@ -93,7 +93,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1552346123
+export SOURCE_DATE_EPOCH=1552604467
 mkdir -p clr-build
 pushd clr-build
 export LDFLAGS="${LDFLAGS} -fno-lto"
@@ -126,7 +126,7 @@ make  %{?_smp_mflags} VERBOSE=1
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1552346123
+export SOURCE_DATE_EPOCH=1552604467
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/wsjtx
 cp COPYING %{buildroot}/usr/share/package-licenses/wsjtx/COPYING
