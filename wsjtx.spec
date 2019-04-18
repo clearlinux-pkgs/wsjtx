@@ -5,8 +5,8 @@
 Name     : wsjtx
 Version  : 2.0.1
 Release  : 3
-URL      : https://downloads.sourceforge.net/project/wsjt/wsjtx-2.0.1/wsjtx-2.0.1.tgz
-Source0  : https://downloads.sourceforge.net/project/wsjt/wsjtx-2.0.1/wsjtx-2.0.1.tgz
+URL      : https://sourceforge.net/projects/wsjt/files/wsjtx-2.0.1/wsjtx-2.0.1.tgz
+Source0  : https://sourceforge.net/projects/wsjt/files/wsjtx-2.0.1/wsjtx-2.0.1.tgz
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-3.0
