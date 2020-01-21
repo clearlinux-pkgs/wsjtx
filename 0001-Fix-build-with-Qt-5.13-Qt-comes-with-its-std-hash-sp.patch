@@ -1,0 +1,33 @@
+From a0854d7fca49756ab29a6fb67a4b59d208ffb1af Mon Sep 17 00:00:00 2001
+From: Thiago Macieira <thiago.macieira@intel.com>
+Date: Tue, 21 Jan 2020 13:10:15 -0800
+Subject: [PATCH] Fix build with Qt 5.13: Qt comes with its std::hash
+ specialisation
+
+---
+ qt_helpers.hpp | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/qt_helpers.hpp b/qt_helpers.hpp
+index b2ec7a49..93e69dca 100644
+--- a/qt_helpers.hpp
++++ b/qt_helpers.hpp
+@@ -78,6 +78,7 @@ public:
+   }
+ };
+ 
++#if QT_VERSION < QT_VERSION_CHECK(5,13,0)
+ namespace std
+ {
+   // std::hash<> specialization for QString based on the dbj2
+@@ -97,6 +98,7 @@ namespace std
+     }
+   };
+ }
++#endif // Qt 5.13
+ 
+ // Register some useful Qt types with QMetaType
+ Q_DECLARE_METATYPE (QHostAddress);
+-- 
+2.25.0
+

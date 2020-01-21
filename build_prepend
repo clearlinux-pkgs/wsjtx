@@ -1,0 +1,2 @@
+# -*- rpm -*-
+cp $RPM_SOURCE_DIR/0001-Fix-build-with-Qt-5.13-Qt-comes-with-its-std-hash-sp.patch wsjtx.patch
