@@ -1,5 +1,3 @@
-2.1.2
+2.2.0
 libusb-dev
-pkgconfig(hamlib)
 qttools-dev
-texinfo
