@@ -7,6 +7,10 @@ libQt5PrintSupport.so.5
 libQt5SerialPort.so.5
 libQt5Sql.so.5
 libQt5Widgets.so.5
+libboost_filesystem.so.1.74.0
+libboost_log.so.1.74.0
+libboost_log_setup.so.1.74.0
+libboost_thread.so.1.74.0
 libc.so.6
 libdl.so.2
 libfftw3f.so.3
