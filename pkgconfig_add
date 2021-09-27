@@ -5,3 +5,4 @@ Qt5SerialPort
 fftw3
 gl
 libudev
+portaudio-2.0
