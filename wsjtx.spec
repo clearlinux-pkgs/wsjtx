@@ -4,7 +4,7 @@
 #
 Name     : wsjtx
 Version  : 2.5.0
-Release  : 12
+Release  : 13
 URL      : https://sourceforge.net/projects/wsjt/files/wsjtx-2.5.0/wsjtx-2.5.0.tgz
 Source0  : https://sourceforge.net/projects/wsjt/files/wsjtx-2.5.0/wsjtx-2.5.0.tgz
 Summary  : No detailed summary available
@@ -12,6 +12,7 @@ Group    : Development/Tools
 License  : GPL-3.0
 Requires: wsjtx-bin = %{version}-%{release}
 Requires: wsjtx-data = %{version}-%{release}
+Requires: wsjtx-filemap = %{version}-%{release}
 Requires: wsjtx-license = %{version}-%{release}
 Requires: wsjtx-man = %{version}-%{release}
 BuildRequires : asciidoc
@@ -42,6 +43,7 @@ Summary: bin components for the wsjtx package.
 Group: Binaries
 Requires: wsjtx-data = %{version}-%{release}
 Requires: wsjtx-license = %{version}-%{release}
+Requires: wsjtx-filemap = %{version}-%{release}
 
 %description bin
 bin components for the wsjtx package.
@@ -62,6 +64,14 @@ Requires: wsjtx-man = %{version}-%{release}
 
 %description doc
 doc components for the wsjtx package.
+
+
+%package filemap
+Summary: filemap components for the wsjtx package.
+Group: Default
+
+%description filemap
+filemap components for the wsjtx package.
 
 
 %package license
@@ -89,7 +99,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1632773992
+export SOURCE_DATE_EPOCH=1633809344
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -103,42 +113,44 @@ popd
 mkdir -p clr-build-avx2
 pushd clr-build-avx2
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -O3 -fno-lto -march=haswell "
-export FCFLAGS="$FFLAGS -O3 -fno-lto -march=haswell "
-export FFLAGS="$FFLAGS -O3 -fno-lto -march=haswell "
-export CXXFLAGS="$CXXFLAGS -O3 -fno-lto -march=haswell "
-export CFLAGS="$CFLAGS -march=haswell -m64"
-export CXXFLAGS="$CXXFLAGS -march=haswell -m64"
-export FFLAGS="$FFLAGS -march=haswell -m64"
-export FCFLAGS="$FCFLAGS -march=haswell -m64"
+export CFLAGS="$CFLAGS -O3 -fno-lto -march=x86-64-v3 -mtune=skylake "
+export FCFLAGS="$FFLAGS -O3 -fno-lto -march=x86-64-v3 -mtune=skylake "
+export FFLAGS="$FFLAGS -O3 -fno-lto -march=x86-64-v3 -mtune=skylake "
+export CXXFLAGS="$CXXFLAGS -O3 -fno-lto -march=x86-64-v3 -mtune=skylake "
+export CFLAGS="$CFLAGS -march=x86-64-v3 -m64"
+export CXXFLAGS="$CXXFLAGS -march=x86-64-v3 -m64"
+export FFLAGS="$FFLAGS -march=x86-64-v3 -m64"
+export FCFLAGS="$FCFLAGS -march=x86-64-v3 -m64"
 %cmake .. -DWSJT_GENERATE_DOCS:BOOL=OFF
 make  %{?_smp_mflags}
 popd
 mkdir -p clr-build-avx512
 pushd clr-build-avx512
 export GCC_IGNORE_WERROR=1
-export CFLAGS="$CFLAGS -O3 -fno-lto -march=skylake-avx512 "
-export FCFLAGS="$FFLAGS -O3 -fno-lto -march=skylake-avx512 "
-export FFLAGS="$FFLAGS -O3 -fno-lto -march=skylake-avx512 "
-export CXXFLAGS="$CXXFLAGS -O3 -fno-lto -march=skylake-avx512 "
-export CFLAGS="$CFLAGS -march=skylake-avx512 -m64 "
-export CXXFLAGS="$CXXFLAGS -march=skylake-avx512 -m64 "
-export FFLAGS="$FFLAGS -march=skylake-avx512 -m64 "
-export FCFLAGS="$FCFLAGS -march=skylake-avx512 -m64 "
+export CFLAGS="$CFLAGS -O3 -fno-lto -march=x86_64-v4 -mtune=skylake "
+export FCFLAGS="$FFLAGS -O3 -fno-lto -march=x86_64-v4 -mtune=skylake "
+export FFLAGS="$FFLAGS -O3 -fno-lto -march=x86_64-v4 -mtune=skylake "
+export CXXFLAGS="$CXXFLAGS -O3 -fno-lto -march=x86_64-v4 -mtune=skylake "
+export CFLAGS="$CFLAGS -march=x86-64-v4 -m64 "
+export CXXFLAGS="$CXXFLAGS -march=x86-64-v4 -m64 "
+export FFLAGS="$FFLAGS -march=x86-64-v4 -m64 "
+export FCFLAGS="$FCFLAGS -march=x86-64-v4 -m64 "
 %cmake .. -DWSJT_GENERATE_DOCS:BOOL=OFF
 make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1632773992
+export SOURCE_DATE_EPOCH=1633809344
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/wsjtx
 cp %{_builddir}/wsjtx-2.5.0/COPYING %{buildroot}/usr/share/package-licenses/wsjtx/adb8e66537b20965af9486caf935e5194245b366
-pushd clr-build-avx512
-%make_install_avx512  || :
-popd
 pushd clr-build-avx2
-%make_install_avx2  || :
+%make_install_v3  || :
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+popd
+pushd clr-build-avx512
+%make_install_v4  || :
+/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 popd
 pushd clr-build
 %make_install
@@ -154,46 +166,6 @@ popd
 /usr/bin/fmtave
 /usr/bin/fst4sim
 /usr/bin/ft8code
-/usr/bin/haswell/avx512_1/fcal
-/usr/bin/haswell/avx512_1/fmeasure
-/usr/bin/haswell/avx512_1/fmtave
-/usr/bin/haswell/avx512_1/fst4sim
-/usr/bin/haswell/avx512_1/ft8code
-/usr/bin/haswell/avx512_1/jt4code
-/usr/bin/haswell/avx512_1/jt65code
-/usr/bin/haswell/avx512_1/jt9
-/usr/bin/haswell/avx512_1/jt9code
-/usr/bin/haswell/avx512_1/message_aggregator
-/usr/bin/haswell/avx512_1/msk144code
-/usr/bin/haswell/avx512_1/q65code
-/usr/bin/haswell/avx512_1/q65sim
-/usr/bin/haswell/avx512_1/rigctl-wsjtx
-/usr/bin/haswell/avx512_1/rigctlcom-wsjtx
-/usr/bin/haswell/avx512_1/rigctld-wsjtx
-/usr/bin/haswell/avx512_1/udp_daemon
-/usr/bin/haswell/avx512_1/wsjtx
-/usr/bin/haswell/avx512_1/wsjtx_app_version
-/usr/bin/haswell/avx512_1/wsprd
-/usr/bin/haswell/fcal
-/usr/bin/haswell/fmeasure
-/usr/bin/haswell/fmtave
-/usr/bin/haswell/fst4sim
-/usr/bin/haswell/ft8code
-/usr/bin/haswell/jt4code
-/usr/bin/haswell/jt65code
-/usr/bin/haswell/jt9
-/usr/bin/haswell/jt9code
-/usr/bin/haswell/message_aggregator
-/usr/bin/haswell/msk144code
-/usr/bin/haswell/q65code
-/usr/bin/haswell/q65sim
-/usr/bin/haswell/rigctl-wsjtx
-/usr/bin/haswell/rigctlcom-wsjtx
-/usr/bin/haswell/rigctld-wsjtx
-/usr/bin/haswell/udp_daemon
-/usr/bin/haswell/wsjtx
-/usr/bin/haswell/wsjtx_app_version
-/usr/bin/haswell/wsprd
 /usr/bin/jt4code
 /usr/bin/jt65code
 /usr/bin/jt9
@@ -209,6 +181,7 @@ popd
 /usr/bin/wsjtx
 /usr/bin/wsjtx_app_version
 /usr/bin/wsprd
+/usr/share/clear/optimized-elf/bin*
 
 %files data
 %defattr(-,root,root,-)
@@ -222,6 +195,10 @@ popd
 %files doc
 %defattr(0644,root,root,0755)
 %doc /usr/share/doc/wsjtx/*
+
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-wsjtx
 
 %files license
 %defattr(0644,root,root,0755)
