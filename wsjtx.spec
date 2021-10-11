@@ -4,7 +4,7 @@
 #
 Name     : wsjtx
 Version  : 2.5.0
-Release  : 13
+Release  : 14
 URL      : https://sourceforge.net/projects/wsjt/files/wsjtx-2.5.0/wsjtx-2.5.0.tgz
 Source0  : https://sourceforge.net/projects/wsjt/files/wsjtx-2.5.0/wsjtx-2.5.0.tgz
 Summary  : No detailed summary available
