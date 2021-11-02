@@ -27,6 +27,7 @@ Configure miss: gd.h presence
 Configure miss: gd.h presence
 Configure miss: gd.h usability
 Configure miss: gd.h usability
+Configure miss: gd.h usability
 Configure miss: libnova/libnova.h
 Configure miss: libnova/libnova.h
 Configure miss: libnova/libnova.h
@@ -44,6 +45,7 @@ Configure miss: libusb.h usability
 Configure miss: libusb.h usability
 Configure miss: nova library... checking libnova/libnova.h usability
 Configure miss: nova library... checking libnova/libnova.h usability
+Configure miss: nova library... checking libnova/libnova.h usability
 Configure miss: rint
 Configure miss: rint
 Configure miss: rint
@@ -80,7 +82,6 @@ Configure miss: whether to build python binding
 Configure miss: whether to build rigmem XML support
 Configure miss: whether to build rigmem XML support
 Configure miss: whether to build rigmem XML support
-Configure miss: whether to use INDI in rigctl/rotctl... checking for nova library... checking libnova/libnova.h usability
 Configure miss: winbase.h
 Configure miss: winbase.h
 Configure miss: winbase.h
