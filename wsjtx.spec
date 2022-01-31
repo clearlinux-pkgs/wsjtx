@@ -4,7 +4,7 @@
 #
 Name     : wsjtx
 Version  : 2.5.4
-Release  : 19
+Release  : 20
 URL      : https://sourceforge.net/projects/wsjt/files/wsjtx-2.5.4/wsjtx-2.5.4.tgz
 Source0  : https://sourceforge.net/projects/wsjt/files/wsjtx-2.5.4/wsjtx-2.5.4.tgz
 Summary  : No detailed summary available
