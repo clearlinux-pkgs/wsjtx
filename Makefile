@@ -1,5 +1,5 @@
 PKG_NAME := wsjtx
-URL = https://sourceforge.net/projects/wsjt/files/wsjtx-2.6.0/wsjtx-2.6.0.tgz
+URL = https://sourceforge.net/projects/wsjt/files/wsjtx-2.6.1/wsjtx-2.6.1.tgz
 ARCHIVES = 
 
 include ../common/Makefile.common

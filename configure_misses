@@ -34,7 +34,6 @@ Configure miss: libnova/libnova.h
 Configure miss: libnova/libnova.h presence
 Configure miss: libnova/libnova.h presence
 Configure miss: libnova/libnova.h presence
-Configure miss: libnova/libnova.h usability
 Configure miss: libusb.h
 Configure miss: libusb.h
 Configure miss: libusb.h
@@ -44,6 +43,7 @@ Configure miss: libusb.h presence
 Configure miss: libusb.h usability
 Configure miss: libusb.h usability
 Configure miss: libusb.h usability
+Configure miss: nova library... checking libnova/libnova.h usability
 Configure miss: nova library... checking libnova/libnova.h usability
 Configure miss: nova library... checking libnova/libnova.h usability
 Configure miss: rint
