@@ -5,7 +5,7 @@
 #
 Name     : wsjtx
 Version  : 2.6.1
-Release  : 31
+Release  : 32
 URL      : https://sourceforge.net/projects/wsjt/files/wsjtx-2.6.1/wsjtx-2.6.1.tgz
 Source0  : https://sourceforge.net/projects/wsjt/files/wsjtx-2.6.1/wsjtx-2.6.1.tgz
 Summary  : No detailed summary available
@@ -93,7 +93,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1683243252
+export SOURCE_DATE_EPOCH=1685481365
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -134,7 +134,7 @@ make  %{?_smp_mflags}
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1683243252
+export SOURCE_DATE_EPOCH=1685481365
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/wsjtx
 cp %{_builddir}/wsjtx-%{version}/COPYING %{buildroot}/usr/share/package-licenses/wsjtx/adb8e66537b20965af9486caf935e5194245b366 || :
